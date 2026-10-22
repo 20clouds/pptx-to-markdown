@@ -67,7 +67,7 @@ Possible replacements for the rendering step (none are wired in yet):
 |---|---|---|
 | **LibreOffice** (free) | Yes, for both jobs: `soffice --headless --convert-to pdf` and `.ppt` → `.pptx` | Runs in the background with no permission prompts. Rendering is close to PowerPoint's but not identical: fonts and complex layouts can shift slightly. |
 | **Keynote** (free with macOS) | Yes, for the PDF export, via AppleScript | Less faithful with PowerPoint layouts. Needs the same Apple Events automation as PowerPoint, with the same risk of hidden dialogs blocking it. |
-| **PdfCraft** (by Artcraft) | No, only for the PDF side | It opens PDFs only. It doesn't accept `.pptx`/`.ppt` and has no AppleScript or command-line interface, so it can't produce the PDF that PowerPoint makes here. It can view or edit a PDF once one exists, but turning PDF pages into images is already handled by `pypdfium2`. |
+| **[DeckCraft](https://github.com/storytold/deckcraft)** (by ArtCraft, free, MIT/Apache-2.0) | Potentially, for snapshots only | An open-source PowerPoint reimplementation in Rust that opens `.pptx` natively. Its `deckcraft-cli` exports PDFs and slide images with no GUI and no AppleScript, so no hidden-dialog problems. It's still alpha (self-rated around 55% ready for real work), and its README only documents rendering its own sample deck, so check rendering of arbitrary `.pptx` files before relying on it. It doesn't read legacy `.ppt` files. Not tested with this project yet. |
 
 ## Notes
 
