@@ -52,6 +52,23 @@ python3 -m venv .venv
 
 Log: `~/Library/Logs/pptx2md.log`
 
+## Why PowerPoint (and what could replace it)
+
+PowerPoint isn't needed for most of the output. Text, speaker notes, extracted images, tables, chart data and SmartArt text all come from reading the `.pptx` directly in Python. PowerPoint does only two jobs:
+
+1. **Rendering full-slide snapshots.** A whole slide (fonts, theme, shapes, charts) needs a real layout engine to draw it. PowerPoint exports the deck to PDF, and `pypdfium2` turns the pages that need it into PNGs.
+2. **Opening legacy `.ppt` files.** python-pptx can't read the old binary format, so PowerPoint converts it to `.pptx` first.
+
+Without PowerPoint, `.pptx` files still convert fully, just without snapshots; the notification and front matter say so. Only `.ppt` files fail.
+
+Possible replacements for the rendering step (none are wired in yet):
+
+| Tool | Can it replace PowerPoint here? | Trade-offs |
+|---|---|---|
+| **LibreOffice** (free) | Yes, for both jobs: `soffice --headless --convert-to pdf` and `.ppt` → `.pptx` | Runs in the background with no permission prompts. Rendering is close to PowerPoint's but not identical: fonts and complex layouts can shift slightly. |
+| **Keynote** (free with macOS) | Yes, for the PDF export, via AppleScript | Less faithful with PowerPoint layouts. Needs the same Apple Events automation as PowerPoint, with the same risk of hidden dialogs blocking it. |
+| **PdfCraft** (by Artcraft) | No, only for the PDF side | It opens PDFs only. It doesn't accept `.pptx`/`.ppt` and has no AppleScript or command-line interface, so it can't produce the PDF that PowerPoint makes here. It can view or edit a PDF once one exists, but turning PDF pages into images is already handled by `pypdfium2`. |
+
 ## Notes
 
 - Snapshots and `.ppt` support drive Microsoft PowerPoint in the background. macOS asks once for permission to control PowerPoint. If you denied it, enable it under System Settings → Privacy & Security → Automation.
