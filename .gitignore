@@ -1,0 +1,18 @@
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# macOS
+.DS_Store
+
+# Decks and conversion output (course material stays local)
+*.ppt
+*.pptx
+*.pptm
+*.pps
+*.ppsx
+*.potx
+*/images/
+*/*.md
+!README.md
